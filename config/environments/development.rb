@@ -94,3 +94,15 @@ module PrivateAddressCheck
     false
   end
 end
+
+# Workaround for InvalidAddressError
+if ENV['USE_BETTER_ERRORS_FROM_ANY_IP'] == 'true' then
+  module BetterErrors
+    class Middleware
+      private
+      def allow_ip?(env)
+        true
+      end
+    end
+  end
+end
